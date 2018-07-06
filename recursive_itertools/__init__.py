@@ -1,9 +1,20 @@
+from collections import Iterable
 
 def rfilter(obj, filter_func):
   if isinstance(obj, dict):
-    return {k:rfilter(v, filter_func) for k,v in obj.iteritems() if filter_func(v)}
-  elif isinstance(obj, list):
-    return [rfilter(x, filter_func) for x in obj if filter_func(x)]
+    o = {}
+    for k,v in obj.items():
+      nv = rfilter(v, filter_func)
+      if filter_func(nv):
+        o[k] = nv
+    return o
+  elif isinstance(obj, Iterable):
+    o = []
+    for x in obj:
+      nx = rfilter(x, filter_func)
+      if filter_func(nx):
+        o.append(nx)
+    return o
   else:
     return obj
 
