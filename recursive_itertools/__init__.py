@@ -8,7 +8,7 @@ def rfilter(obj, filter_func):
       if filter_func(nv):
         o[k] = nv
     return o
-  elif isinstance(obj, Iterable):
+  elif isinstance(obj, list):
     o = []
     for x in obj:
       nx = rfilter(x, filter_func)
